@@ -1,0 +1,134 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="robots" content="noindex,nofollow" />
+    <!-- Styles generated from theme -->
+    <link href="{{themedStylesUrl}}" rel="stylesheet" type="text/css">
+    <!-- Favicon from theme -->
+    <link rel="shortcut icon" href="{{faviconUrl}}" type="image/x-icon">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter+Tight:ital,wght@0,100..900;1,100..900&family=Poiret+One&display=swap" rel="stylesheet">    
+    <title>{{pageTitle}}</title>
+    {{{SignInWidgetResources}}}
+
+    <style nonce="{{nonceValue}}">
+        :root {
+            --color-gray: #4f4f4f;
+            --color-fuchsia: #ea3eda;
+            --color-orange: #ffa738;
+            --color-azul: #016fb9;
+            --color-cherry: #ea3e84;
+            --color-purple: #b13fff;
+            --color-black: #191919;
+            --color-white: #fefefe;
+            --color-bright-white: #fff;
+            --border-radius: 4px;
+            --font-header: 'Poiret One', sans-serif;
+            --font-body: 'Inter Tight', sans-serif; 
+        }
+
+        {{ #useSiwGen3 }}
+            html {
+                font-size: 87.5%;
+            }
+        {{ /useSiwGen3 }}
+
+        #login-bg-image-id {
+            background-image: {{bgImageUrl}};
+            display: flex;
+        }
+
+        .login-container-panel {
+            background: var(--color-white);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            width: 40%;
+            min-width: 400px;
+        }
+
+        a[data-se="blogCustomLink"] {
+            text-transform: uppercase;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="login-bg-image-id" class="login-bg-image tb--background">
+        <div class="login-container-panel">
+            <div id="okta-login-container"></div>
+        </div>
+    </div>
+
+    <!--
+   "OktaUtil" defines a global OktaUtil object
+   that contains methods used to complete the Okta login flow.
+-->
+    {{{OktaUtil}}}
+
+
+    <script type="text/javascript" nonce="{{nonceValue}}">
+        // "config" object contains default widget configuration
+        // with any custom overrides defined in your admin settings.
+
+        const config = OktaUtil.getSignInWidgetConfig();
+        config.theme = {
+            tokens: {
+                BorderColorDisplay: 'var(--color-bright-white)',
+                PalettePrimaryMain: 'var(--color-fuchsia)',
+                PalettePrimaryDark: 'var(--color-purple)',
+                PalettePrimaryDarker: 'var(--color-purple)',
+                BorderRadiusTight: 'var(--border-radius)',
+                BorderRadiusMain: 'var(--border-radius)',
+                PalettePrimaryDark: 'var(--color-orange)',
+                FocusOutlineColorPrimary: 'var(--color-azul)',
+                TypographyFamilyBody: 'var(--font-body)',
+                TypographyFamilyHeading: 'var(--font-header)',
+                TypographyFamilyButton: 'var(--font-body)',
+                BorderColorDangerControl: 'var(--color-cherry)'
+            }
+        }
+
+        // Render the Okta Sign-In Widget
+        const oktaSignIn = new OktaSignIn(config);
+        oktaSignIn.renderEl({ el: '#okta-login-container' },
+            OktaUtil.completeLogin,
+            function (error) {
+                // Logs errors that occur when configuring the widget.
+                // Remove or replace this with your own custom error handler.
+                console.log(error.message, error);
+            }
+        );
+
+        oktaSignIn.afterTransform('identify', ({formBag}) => {
+            const title = formBag.uischema.elements.find(ele => ele.type === 'Title');
+            if (title) {
+                title.options.content = "Log in and create a task";
+            }
+
+            const help = formBag.uischema.elements.find(ele => ele.type === 'Link' && ele.options.dataSe === 'help');
+            const unlock = formBag.uischema.elements.find(ele => ele.type === 'Link' && ele.options.dataSe === 'unlock');
+            const divider = formBag.uischema.elements.find(ele => ele.type === 'Divider');
+            formBag.uischema.elements = formBag.uischema.elements.filter(ele => ![help, unlock, divider].includes(ele));
+
+            const blogLink = {
+                type: 'Link',
+                contentType: 'footer', 
+                options: {
+                    href: 'https://developer.okta.com/blog',
+                    label: 'Read our blog',
+                    dataSe: 'blogCustomLink'
+                }
+            };
+            formBag.uischema.elements.push(blogLink);
+        });
+
+    </script>
+
+</body>
+
+</html>
