@@ -1,0 +1,172 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="robots" content="noindex,nofollow" />
+  <!-- Styles generated from theme -->
+  <link href="{{themedStylesUrl}}" rel="stylesheet" type="text/css">
+  <!-- Favicon from theme -->
+  <link rel="shortcut icon" href="{{faviconUrl}}" type="image/x-icon">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+      href="https://fonts.googleapis.com/css2?family=Inter+Tight:ital,wght@0,100..900;1,100..900&family=Manrope:wght@200..800&display=swap"
+      rel="stylesheet">
+  <title>{{pageTitle}}</title>
+  {{{SignInWidgetResources}}}
+
+  <style nonce="{{nonceValue}}">
+    :root {
+      --font-header: 'Inter Tight', sans-serif;
+      --font-body: 'Manrope', sans-serif;
+      --color-gray: #4f4f4f;
+      --color-fuchsia: #ea3eda;
+      --color-orange: #ffa738;
+      --color-azul: #016fb9;
+      --color-cherry: #ea3e84;
+      --color-purple: #b13fff;
+      --color-black: #191919;
+      --color-white: #fefefe;
+      --color-bright-white: #fff;
+      --border-radius: 4px;
+      --color-gradient: linear-gradient(12deg, var(--color-fuchsia) 0%, var(--color-orange) 100%);
+    }
+
+    {{#useSiwGen3}}
+      html {
+        font-size: 87.5%;
+      }
+    {{/useSiwGen3}}
+
+  </style>
+  <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4" nonce="{{nonceValue}}"></script>
+  <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js" nonce="{{nonceValue}}"></script>
+  <script type="text/javascript" nonce="{{nonceValue}}">
+    
+  </script>
+</head>
+
+<body>
+    <div class="flex flex-col min-h-screen">
+      <div id="modal"
+             x-data
+             x-cloak
+             x-show="$store.modal.open"
+             x-transition:enter="transition ease-out duration-300"
+             x-transition:enter-start="opacity-0"
+             x-transition:enter-end="opacity-100"
+             x-transition:leave="transition ease-in duration-200"
+             x-transition:leave-start="opacity-100"
+             x-transition:leave-end="opacity-0 hidden"
+             class="hidden fixed inset-0 z-50 flex items-center justify-center bg-(--color-black)/80 bg-opacity-50"
+             >
+            <div x-transition:enter="transition ease-out duration-300"
+                 x-transition:enter-start="opacity-0 scale-90"
+                 x-transition:enter-end="opacity-100 scale-100"
+                 x-transition:leave="transition ease-in duration-200"
+                 x-transition:leave-start="opacity-100 scale-100"
+                 x-transition:leave-end="opacity-0 scale-90"
+                 class="bg-(--color-white) rounded-(--border-radius) shadow-lg p-8 max-w-md w-full mx-4">
+                <h2 class="text-2xl font-(family-name:--font-header) text-(--color-black) mb-4 text-center">Welcome to To-do app</h2>
+                 <p class="text-(--color-black) mb-6">This app is in beta. Thank you for agreeing to our terms and conditions.</p>
+                <button @click="$store.modal.hide()" 
+                        class="w-full bg-(--color-fuchsia) hover:bg-(--color-orange) text-(--color-bright-white) font-medium py-2 px-4 rounded-(--border-radius) transition duration-200">
+                    Agree
+                </button>
+            </div>
+        </div>        
+        <div id="okta-auth-container" class="flex grow bg-(--color-gray) bg-[{{bgImageUrl}}]">
+            <div class="w-full min-w-sm lg:w-2/3 xl:w-1/2 bg-(image:--color-gradient) lg:bg-none bg-(--color-white) flex justify-center items-center">
+                <div id="okta-login-container"></div>
+            </div>
+        </div>
+        <footer class="font-(family-name:--font-body)">
+            <ul class="h-12 flex justify-evenly items-center text-(--color-azul)">
+                <li><a class="hover:text-(--color-orange) hover:underline" href="https://developer.okta.com">Terms</a></li>
+                <li><a class="hover:text-(--color-orange) hover:underline" href="https://developer.okta.com">Docs</a></li>
+                <li><a class="hover:text-(--color-orange) hover:underline" href="https://developer.okta.com/blog">Blog</a></li>
+                <li><a class="hover:text-(--color-orange) hover:underline" href="https://devforum.okta.com">Community</a></li>
+            </ul>
+        </footer>
+    </div>
+    
+  <!--
+   "OktaUtil" defines a global OktaUtil object
+   that contains methods used to complete the Okta login flow.
+  -->
+  {{{OktaUtil}}}
+
+  <script type="text/javascript" nonce="{{nonceValue}}">
+    // "config" object contains default widget configuration
+    // with any custom overrides defined in your admin settings.
+
+    const config = OktaUtil.getSignInWidgetConfig();
+    config.theme = {
+      tokens: {
+        BorderColorDisplay: 'var(--color-bright-white)',
+        PalettePrimaryMain: 'var(--color-fuchsia)',
+        PalettePrimaryDark: 'var(--color-purple)',
+        PalettePrimaryDarker: 'var(--color-purple)',
+        BorderRadiusTight: 'var(--border-radius)',
+        BorderRadiusMain: 'var(--border-radius)',
+        PalettePrimaryDark: 'var(--color-orange)',
+        FocusOutlineColorPrimary: 'var(--color-azul)',
+        TypographyFamilyBody: 'var(--font-body)',
+        TypographyFamilyHeading: 'var(--font-header)',
+        TypographyFamilyButton: 'var(--font-header)',
+        BorderColorDangerControl: 'var(--color-cherry)'
+      }
+    }
+
+    config.i18n = {
+      'en': {
+        'primaryauth.title': 'Log in to create tasksrgd',
+      }
+    }
+
+    // Render the Okta Sign-In Widget
+    const oktaSignIn = new OktaSignIn(config);
+    oktaSignIn.renderEl({ el: '#okta-login-container' },
+      OktaUtil.completeLogin,
+      function (error) {
+        // Logs errors that occur when configuring the widget.
+        // Remove or replace this with your own custom error handler.
+        console.log(error.message, error);
+      }
+    );
+
+    document.addEventListener('alpine:init', () => {
+    Alpine.store('modal', {
+      open: false,
+      show() {
+        this.open = true;
+      },
+      hide() {
+        this.open = false;
+      }
+    });
+    });
+
+  // Use MutationObserver to watch for auth container element
+        const loginContainer = document.querySelector("#okta-login-container");
+
+        const mutationObserver = new MutationObserver(() => {
+            const element = loginContainer.querySelector('[data-se*="auth-container"]');
+            if (element) {
+                document.getElementById('modal').classList.remove('hidden');
+                // Open modal using Alpine store
+                Alpine.store('modal').show();
+                // Clean up the observer
+                mutationObserver.disconnect();
+            }
+        });
+        
+        mutationObserver.observe(loginContainer, {
+            childList: true,
+            subtree: true
+        });
+  </script>
+</body>
+</html>

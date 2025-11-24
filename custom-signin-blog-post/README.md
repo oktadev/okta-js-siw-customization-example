@@ -2,7 +2,9 @@
 
 This repository shows you how to customize the Okta-hosted Sign-In Widget (SIW) Gen3 to match your brand using design tokens, CSS custom properties, and custom HTML elements.
 
-Please read [Stretch Your Imagination and Build a Delightful Sign-In Experience](https://developer.okta.com/blog/2025/11/08/custom-signin) to see how this customization was created.
+Please read [Stretch Your Imagination and Build a Delightful Sign-In Experience](https://developer.okta.com/blog/2025/11/08/custom-signin) to see how the `delightful-signin-post.html` customization was created.
+
+Please read [Unlock the Secrets of a Custom Sign-in Page with Tailwind and JavaScript](https://developer.okta.com/blog/2025/11/25/okta-custom-sign-in-page) to see how the `custom-signin-tailwind-alpine-post.html` customization was created.
 
 **Prerequisites:**
 
@@ -56,7 +58,7 @@ To load external resources (such as custom fonts from Google Fonts):
 
 1. Navigate to the **Settings** tab for your brand's Sign-in page
 2. Find the **Content Security Policy** section and click **Edit**
-3. Add the domains for external resources (e.g., `*.googleapis.com`, `*.gstatic.com`)
+3. Add the domains for external resources (e.g., `*.googleapis.com`, `*.gstatic.com`, `https://cdn.jsdelivr.net`)
 4. Click **Save to draft** and then **Publish**
 
 ## Links
@@ -67,7 +69,7 @@ This example demonstrates customization techniques for the following:
 
 ## Help
 
-Please post any questions as comments on the [blog post](https://developer.okta.com/blog/2025/11/12/custom-signin), or visit our [Okta Developer Forums](https://devforum.okta.com/).
+Please post any questions as comments on the [blog posts](https://developer.okta.com/blog/tags/siw-customization), or visit our [Okta Developer Forums](https://devforum.okta.com/).
 
 ## License
 
